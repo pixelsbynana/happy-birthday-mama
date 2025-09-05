@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mama!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jua', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .cake-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .cake-image {
+            width: 300px;
+            height: auto;
+            max-width: 80vw;
+        }
+
+        .mom-image {
+            width: 400px;
+            height: auto;
+            max-width: 80vw;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s ease;
+        }
+
+        .mom-image.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .blow-text {
+            font-size: 2.5rem;
+            color: #ff6b9d;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .birthday-text {
+            font-size: 3rem;
+            color: #ff6b9d;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.5s;
+        }
+
+        .birthday-text.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .stage {
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        .stage.fade-out {
+            opacity: 0;
+        }
+
+        .stage.hidden {
+            display: none;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .instructions {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            text-align: center;
+            animation: fadeInOut 3s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .blow-text {
+                font-size: 2rem;
+            }
+            
+            .birthday-text {
+                font-size: 2.2rem;
+            }
+            
+            .cake-image {
+                width: 250px;
+            }
+            
+            .mom-image {
+                width: 300px;
+            }
+            
+            .instructions {
+                font-size: 1rem;
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blow-text {
+                font-size: 1.7rem;
+            }
+            
+            .birthday-text {
+                font-size: 1.8rem;
+            }
+            
+            .cake-image {
+                width: 200px;
+            }
+            
+            .mom-image {
+                width: 250px;
+            }
+        }
+
+        /* Hover effects for desktop */
+        @media (hover: hover) {
+            .mom-image:hover {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stage 1: Cake with candle -->
+    <div id="stage1" class="container stage">
+        <div class="blow-text">Blow the candle!</div>
+        <div class="cake-container">
+            <svg class="cake-image" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cake base -->
+                <ellipse cx="200" cy="280" rx="120" ry="20" fill="#f5e6d3"/>
+                <rect x="80" y="180" width="240" height="100" rx="10" fill="#f5e6d3"/>
+                
+                <!-- Pink frosting -->
+                <path d="M80 180 Q90 160 110 165 Q130 155 150 165 Q170 155 190 165 Q210 155 230 165 Q250 155 270 165 Q290 155 310 165 Q330 160 320 180 Z" fill="#e91e63"/>
+                
+                <!-- Candle -->
+                <rect x="195" y="140" width="10" height="40" rx="2" fill="#ffd54f"/>
+                <rect x="193" y="140" width="14" height="8" rx="2" fill="#ff8a65"/>
+                
+                <!-- MUCH BIGGER Flame -->
+                <ellipse id="flame" cx="200" cy="115" rx="12" ry="25" fill="#ffeb3b">
+                    <animate attributeName="ry" values="25;30;25" dur="0.5s" repeatCount="indefinite"/>
+                    <animate attributeName="rx" values="12;15;12" dur="0.7s" repeatCount="indefinite"/>
+                    <animate attributeName="fill" values="#ffeb3b;#ff9800;#ffeb3b" dur="0.3s" repeatCount="indefinite"/>
+                </ellipse>
+                
+                <!-- Inner flame core -->
+                <ellipse cx="200" cy="115" rx="6" ry="18" fill="#fff" opacity="0.8">
+                    <animate attributeName="ry" values="18;22;18" dur="0.4s" repeatCount="indefinite"/>
+                </ellipse>
+                
+                <!-- Flame glow effect -->
+                <ellipse cx="200" cy="120" rx="4" ry="12" fill="#fff" opacity="0.6">
+                    <animate attributeName="ry" values="12;15;12" dur="0.6s" repeatCount="indefinite"/>
+                </ellipse>
+            </svg>
+        </div>
+        <div class="instructions">Click anywhere to blow out the candle!</div>
+    </div>
+
+    <!-- Stage 2: Cake without candle -->
+    <div id="stage2" class="container stage hidden">
+        <div class="cake-container">
+            <svg class="cake-image" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cake base -->
+                <ellipse cx="200" cy="280" rx="120" ry="20" fill="#f5e6d3"/>
+                <rect x="80" y="180" width="240" height="100" rx="10" fill="#f5e6d3"/>
+                
+                <!-- Pink frosting -->
+                <path d="M80 180 Q90 160 110 165 Q130 155 150 165 Q170 155 190 165 Q210 155 230 165 Q250 155 270 165 Q290 155 310 165 Q330 160 320 180 Z" fill="#e91e63"/>
+                
+                <!-- Candle without flame -->
+                <rect x="195" y="140" width="10" height="40" rx="2" fill="#ffd54f"/>
+                <rect x="193" y="140" width="14" height="8" rx="2" fill="#ff8a65"/>
+                
+                <!-- Enhanced Smoke effect -->
+                <g id="smoke" opacity="0">
+                    <path d="M200 140 Q202 130 198 120 Q204 110 200 100 Q196 90 202 80" stroke="#666" stroke-width="3" fill="none">
+                        <animate attributeName="d" values="M200 140 Q202 130 198 120 Q204 110 200 100 Q196 90 202 80;M200 140 Q205 130 195 120 Q208 110 195 100 Q190 90 205 80;M200 140 Q202 130 198 120 Q204 110 200 100 Q196 90 202 80" dur="3s" repeatCount="1"/>
+                    </path>
+                    <path d="M200 140 Q198 132 202 124 Q196 116 202 108" stroke="#888" stroke-width="2" fill="none">
+                        <animate attributeName="d" values="M200 140 Q198 132 202 124 Q196 116 202 108;M200 140 Q195 132 205 124 Q192 116 208 108;M200 140 Q198 132 202 124 Q196 116 202 108" dur="2.5s" repeatCount="1"/>
+                    </path>
+                    <circle cx="200" cy="135" r="1.5" fill="#aaa">
+                        <animate attributeName="cy" values="135;115;95" dur="2s" repeatCount="1"/>
+                        <animate attributeName="opacity" values="0.8;0.4;0" dur="2s" repeatCount="1"/>
+                    </circle>
+                    <circle cx="198" cy="138" r="1" fill="#999">
+                        <animate attributeName="cy" values="138;118;98" dur="2.3s" repeatCount="1"/>
+                        <animate attributeName="opacity" values="0.6;0.3;0" dur="2.3s" repeatCount="1"/>
+                    </circle>
+                    <animate attributeName="opacity" values="0;1;0.8;0" dur="3s" repeatCount="1"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Stage 3: Mom's photo with birthday message -->
+    <div id="stage3" class="container stage hidden">
+        <img src="/mama.jpg" alt="Mom's Photo" class="mom-image" id="momPhoto">
+        <div class="birthday-text">Happy birthday mama!<br><span style="font-size:2rem;">Love you kaa<br>- from Nana</span></div>
+    </div>
+
+    <script>
+        let currentStage = 1;
+        let clickCount = 0;
+
+        // Create audio context for sound effects (will be initialized on first user interaction)
+        let audioContext;
+        let cheeringSound;
+
+        function initializeAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playCheeringSound() {
+            if (!audioContext) return;
+            
+            // Create a simple celebratory sound using Web Audio API
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Create a happy, celebratory tone
+            oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+            oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+            oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        function createConfetti() {
+            const colors = ['#ff6b9d', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 50);
+            }
+        }
+
+        function nextStage() {
+            initializeAudio(); // Initialize audio on first interaction
+            
+            const currentStageEl = document.getElementById(`stage${currentStage}`);
+            
+            if (currentStage === 1) {
+                // Transition from stage 1 to stage 2
+                currentStageEl.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    currentStageEl.classList.add('hidden');
+                    currentStage = 2;
+                    const nextStageEl = document.getElementById(`stage${currentStage}`);
+                    nextStageEl.classList.remove('hidden');
+                    
+                    // Auto transition to stage 3 after 1.5 seconds
+                    setTimeout(() => {
+                        nextStage();
+                    }, 1500);
+                }, 800);
+                
+            } else if (currentStage === 2) {
+                // Transition from stage 2 to stage 3
+                currentStageEl.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    currentStageEl.classList.add('hidden');
+                    currentStage = 3;
+                    const finalStageEl = document.getElementById(`stage${currentStage}`);
+                    finalStageEl.classList.remove('hidden');
+                    
+                    // Show mom's photo and text with animation
+                    setTimeout(() => {
+                        const momPhoto = document.getElementById('momPhoto');
+                        const birthdayText = document.querySelector('.birthday-text');
+                        
+                        // Set the actual image source here - you'll need to replace this with the actual image
+                        momPhoto.src = '/mama.jpg';
+                        
+                        momPhoto.classList.add('show');
+                        birthdayText.classList.add('show');
+                        
+                        // Create confetti and play sound
+                        createConfetti();
+                        playCheeringSound();
+                    }, 300);
+                }, 800);
+            }
+        }
+
+        // Add click event listener
+        document.addEventListener('click', () => {
+            if (currentStage < 3) {
+                nextStage();
+            } else {
+                // Reset confetti on subsequent clicks in final stage
+                createConfetti();
+                playCheeringSound();
+            }
+        });
+
+        // Add keyboard support (spacebar)
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (currentStage < 3) {
+                    nextStage();
+                } else {
+                    createConfetti();
+                    playCheeringSound();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
